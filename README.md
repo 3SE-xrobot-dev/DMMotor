@@ -2,7 +2,8 @@
 
 3SE fork of [QDU-Robomaster/DMMotor](https://github.com/QDU-Robomaster/DMMotor)
 at `990cac842576268fe3a267faa82c3f543611ec54` (Apache-2.0). Upstream
-CLI examples below use the QDU namespace; this copy is currently local.
+CLI examples below retain the QDU namespace; this repository is published at
+https://github.com/3SE-xrobot-dev/DMMotor.
 
 For old Hero MIT scaling select `MOTOR_HERO_DOWN` (position +/-3.14 rad,
 velocity +/-30 rad/s, torque +/-11 N m) or `MOTOR_HERO_UP` (position +/-12.5
