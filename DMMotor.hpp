@@ -69,8 +69,8 @@ class DMMotor : public Motor
     bool reverse;     ///< 反向：反馈与下发的位置、速度、力矩取反
                       ///< Reverse: negates the position, velocity and torque of the
                       ///< feedback and of the commands
-    uint16_t can_id;  ///< 电机控制 ID，反馈 ID 为 0x10 + can_id
-                      ///< Motor control ID; the feedback ID is 0x10 + can_id
+    uint16_t can_id;  ///< Motor command ID
+    uint16_t feedback_id;  ///< 0 uses can_id + 0x10; otherwise explicit feedback ID
   };
 
   /**
@@ -108,7 +108,8 @@ class DMMotor : public Motor
   DMMotor(LibXR::CAN& can_bus,
           const Param& param = {.model = DMMotor::Model::MOTOR_DM4310,
                                 .reverse = false,
-                                .can_id = 1})
+                                .can_id = 1,
+                                .feedback_id = 0})
       : param_(param), feedback_{}, can_(std::addressof(can_bus))
   {
     switch (param_.model)
@@ -152,7 +153,8 @@ class DMMotor : public Motor
         break;
     }
     // 反馈帧 ID 为 0x10 + can_id
-    uint16_t feedback_id_to_register = 0x10 + param_.can_id;
+    uint16_t feedback_id_to_register =
+        param_.feedback_id != 0 ? param_.feedback_id : 0x10 + param_.can_id;
 
     auto rx_callback = LibXR::CAN::Callback::Create(
         [](bool in_isr, DMMotor* self, const LibXR::CAN::ClassicPack& pack)

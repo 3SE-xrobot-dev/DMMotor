@@ -7,7 +7,9 @@ CLI examples below use the QDU namespace; this copy is currently local.
 For old Hero MIT scaling select `MOTOR_HERO_DOWN` (position +/-3.14 rad,
 velocity +/-30 rad/s, torque +/-11 N m) or `MOTOR_HERO_UP` (position +/-12.5
 rad with the same velocity and torque ranges). The legacy lower-board stirring
-motor uses command ID `0x108` and feedback ID `0x018`.
+motor uses command ID `0x108` and feedback ID `0x018`; set
+`Param.feedback_id = 0x018` for it. Other Hero DM motors keep the default
+`0x10 + can_id` feedback mapping.
 
 达妙（DM）电机 CAN 驱动模块，支持 DM4310 与 DM8009 / CAN driver Module for Damiao (DM) motors, supporting the DM4310 and DM8009
 
