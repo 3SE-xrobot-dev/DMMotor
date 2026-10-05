@@ -331,6 +331,7 @@ class DMMotor : public Motor
   static void RxCallback(bool in_isr, DMMotor* self, const LibXR::CAN::ClassicPack& pack)
   {
     UNUSED(in_isr);
+    if (pack.dlc != 8) return;
     while (self->recv_queue_.Push(pack) != LibXR::ErrorCode::OK)
     {
       self->recv_queue_.Pop();
